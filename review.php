@@ -148,6 +148,22 @@ include "konek.php";
   <a class="edit-reviews-btn" href="edit-review.php?id_review=<?php echo $id; ?>">Edit Reviews</a>
         <center>
         <h1><?php echo $judul; ?></h1> <!--  ni sama dibawah ngambil judul ini itu etc-->
+        <h2>RATING KAMI</h2>
+        <div class="rating"> <!-- sistem rating -->
+            <ul style="padding-left: 0; display:flex; gap:3px; justify-content:center; margin-bottom:20px;">
+                <?php
+                $rating = $data['rating']; 
+                for ($i = 1; $i <= 5; $i++) {
+                    $class = ($i <= $rating) ? "selected" : "";
+                    echo "<li class='$class' style='list-style:none; font-size:29px; color:" .
+                        ($class ? "#ffc107" : "#4d4f56ff") .
+                        ";'>&#9733;</li>";
+                } // intinya diatas per tiap bintang yang ada di db bakal di loop sampe 5 bintang
+                // lalu warnanya diatur apakah bintang tersebut sesuai angka rating di db atau enggak
+                // kalau bintangnya di db kurang dari 5 maka sisanya warna abu abu sedangkan sisanya kuning
+                ?>
+            </ul>
+        </div>
         <p><?php echo $teks1?></p>
         <img src="gambar/<?php echo $data['gambar_1']; ?>" style="width: 620px; height: auto;"><br><br> <!-- kalo gambar bisa diginiin atau kalian buat senddiri styling di css biar fleksibel sesuka haari tapi php nya jangan dihapus -->
         <p><?php echo $teks2?></p>

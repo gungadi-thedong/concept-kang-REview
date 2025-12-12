@@ -57,7 +57,7 @@ $produk_res = mysqli_query($koneksi, $produk_q);
                 if($produk_res){
                     while($p = mysqli_fetch_assoc($produk_res)){
                         $sel = (isset($review['id_produk']) && $review['id_produk'] == $p['id_produk']) ? ' selected' : '';
-                        echo "<option value='".intval($p['id_produk'])."".$sel."'>".htmlspecialchars($p['nama_produk'])."</option>";
+                        echo "<option value='".intval($p['id_produk'])."'".$sel.">".htmlspecialchars($p['nama_produk'])."</option>";
                     }
                 }
             ?>
@@ -68,6 +68,21 @@ $produk_res = mysqli_query($koneksi, $produk_q);
             <td>judul</td>
             <td> : </td>
             <td><textarea name="judul" class="larga-area"><?php echo htmlspecialchars($review['judul']); ?></textarea></td>
+        </tr>
+        <tr>
+            <td>rating</td>
+            <td> : </td>
+            <td>
+                <select name="rating" style="width:120px; height:30px;">
+                    <?php
+                        $curRating = isset($review['rating']) ? intval($review['rating']) : 0;
+                        for($r=1;$r<=5;$r++){
+                            $s = ($curRating === $r) ? ' selected' : '';
+                            echo "<option value='".$r."'".$s.">".$r." bintang</option>";
+                        }
+                    ?>
+                </select>
+            </td>
         </tr>
         <tr>
             <td>paragraf pembuka</td>
