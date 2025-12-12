@@ -1,0 +1,40 @@
+// PHP Backend (e.g., api.php)
+<?php
+header('Content-Type: application/json');
+
+$data = [
+    ['product' => 'Laptop', 'price' => 1200],
+    ['product' => 'Keyboard', 'price' => 75]
+];
+
+echo json_encode($data);
+?> ex fungsi buat ambil php
+
+// React Frontend (e.g., App.js)
+import React, { useEffect, useState } from 'react';
+
+function App() {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetch('/api.php') // Assuming api.php is accessible from the root
+      .then(response => response.json())
+      .then(data => setProducts(data));
+  }, []);
+
+  return (
+    <div>
+      <h1>Products</h1>
+      <ul>
+        {products.map((product, index) => (
+          <li key={index}>
+            {product.product} - ${product.price}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default App; 
+ex fungsi buat di js dan react
