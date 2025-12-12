@@ -80,6 +80,23 @@
 
 
   </style> 
+  <style>
+  /* Buat Review button (top-right) */
+  .buat-review-btn{
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    background:#28a745;
+    color:#fff;
+    padding:8px 12px;
+    border-radius:6px;
+    text-decoration:none;
+    font-weight:600;
+    z-index:9999;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+  }
+  .buat-review-btn:hover{ background:#1e7e34 }
+  </style>
 <!-- ini diatas cuma styling doang edit sendiri nanti -->
 </head>
 
@@ -88,7 +105,24 @@
 <?php
 if(isset($_SESSION['username']))
 {
+  // check permission for current user (admin or penulis can create reviews)
+  $showCreate = false;
+  if(!empty($_SESSION['username'])){
+      $u = mysqli_real_escape_string($koneksi, $_SESSION['username']);
+      $permQ = "SELECT permission FROM login WHERE username='".$u."' LIMIT 1";
+      $permR = mysqli_query($koneksi, $permQ);
+      if($permR && mysqli_num_rows($permR)>0){
+          $permRow = mysqli_fetch_assoc($permR);
+          $perm = strtolower(trim($permRow['permission']));
+          if(in_array($perm, array('admin','penulis'))){
+              $showCreate = true;
+          }
+      }
+  }
   ?>
+            <?php if($showCreate): ?>
+              <a class="buat-review-btn" href="in-page.php">Buat Review</a>
+            <?php endif; ?>
             <div class="container">
             <!-- ni biar bisa di enkapsulate semuanya jadi satu edit ja ananti -->
       <h1>Review Produk Terbaru</h1> <!-- ni judul -->
